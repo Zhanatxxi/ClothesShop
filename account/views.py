@@ -54,10 +54,10 @@ class ResetPasswordCompleteView(APIView):
 
 
 class ChangePassword(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, ]
 
     def post(self, request):
-        serializer = ChangePasswordSerializer(data=request.data)
+        serializer = ChangePasswordSerializer(data=request.data, context={'request': request})
         if serializer.is_valid(raise_exception=True):
             serializer.set_new_password()
             return Response('Вы успешно сменили пароль', status=status.HTTP_200_OK)

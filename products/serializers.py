@@ -17,8 +17,6 @@ class ProductListSerializer(serializers.ModelSerializer):
         )
 
 
-
-
 class PostImageSerializer(serializers.ModelSerializer):
 
     class Meta:

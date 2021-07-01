@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import HttpResponse
 from rest_framework import viewsets, mixins, generics, status
 from rest_framework.decorators import action
@@ -33,6 +34,15 @@ class ProductViewSet(viewsets.ModelViewSet):
         elif self.action in ['create_review', 'like', 'favorites']:
             return [IsAuthenticated()]
         return []
+
+    @action(detail=False, methods=["GET"])
+    def search(self, request, pk=None):
+        q = request.query_params.get("q")
+        queryset = self.get_queryset()
+        queryset = queryset.filter(Q(title__icontains=q) |
+                                   Q(description__icontains=q))
+        serializer = ProductListSerializer(queryset, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
     @action(detail=True, methods=['POST'])
     def create_review(self, request, pk):

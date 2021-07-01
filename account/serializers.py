@@ -111,13 +111,14 @@ class ChangePasswordSerializer(serializers.Serializer):
 
     def validate_old_pass(self, password):
         request = self.context.get('request')
+        print(request)
         if not request.user.check_password(password):
             raise serializers.ValidationError('enter do not right password')
         return password
 
     def validate(self, attrs):
-        pass_ = self.validated_data.get('new_pass')
-        pass_confirm = self.validated_data.get('new_pass_confirm')
+        pass_ = attrs.get('new_pass')
+        pass_confirm = attrs.get('new_pass_confirm')
         if pass_ != pass_confirm:
             raise serializers.ValidationError('неверное подтверждение нового пародля')
         return attrs
