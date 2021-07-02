@@ -12,5 +12,6 @@ urlpatterns = [
     path('reset_password/', ResetPassword.as_view()),
     path('reset_password_complete/', ResetPasswordCompleteView.as_view()),
     path('change_password/', ChangePassword.as_view()),
-    path('favorite/', Favoritess.as_view())
+    path('favorite/', Favoritess.as_view()),
+    path('profile/', Profile.as_view())
 ]

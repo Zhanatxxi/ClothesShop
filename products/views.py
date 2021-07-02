@@ -1,14 +1,11 @@
 from django.db.models import Q
-from django.http import HttpResponse
 from rest_framework import viewsets, mixins, generics, status
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 
-from account.models import User
 from products.filters import ProductFilter
 from products.models import Product, ClickLike, Review, ProductImage, Favorite
 from products.permissions import IsAuthorOrAdminPermission

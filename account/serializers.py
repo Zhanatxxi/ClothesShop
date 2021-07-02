@@ -149,3 +149,13 @@ class ActivationSerializer(serializers.Serializer):
         user.activation_code = ''
         user.save()
 
+
+class MyProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = (
+            'email',
+            'first_name',
+            'last_name'
+        )
+

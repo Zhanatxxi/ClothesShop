@@ -1,6 +1,7 @@
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -61,6 +62,18 @@ class ChangePassword(APIView):
         if serializer.is_valid(raise_exception=True):
             serializer.set_new_password()
             return Response('Вы успешно сменили пароль', status=status.HTTP_200_OK)
+
+
+class Profile(APIView):
+    permission_classes = [IsAuthenticated, ]
+
+    def get(self, request):
+        print(request.user)
+        user = User.objects.get(email=request.user)
+        serializer = MyProfileSerializer(user)
+        return Response(serializer.data)
+
+
 
 
 
